@@ -1,3 +1,4 @@
+const { Op } = require('sequelize')
 const mapperConfig = require('../config/mapperConfig')
 
 module.exports = {
@@ -14,18 +15,14 @@ module.exports = {
       },
     })
   },
-  getByPropAccurate: async function (tableName, key, val) {
-    return mapperConfig[tableName].findOne({
-      where: {
-        [key]: val,
-      },
-    })
+  getByPropAccurate: async function (tableName,where) {
+    return mapperConfig[tableName].findOne(where)
   },
   getByPropBlur: async function (tableName, key, val) {
     return mapperConfig[tableName].findOne({
       where: {
         [key]: {
-          [Op.like]: `${val}%`,
+          [Op.like]: `%${val}%`,
         },
       },
     })

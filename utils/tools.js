@@ -16,7 +16,7 @@ module.exports = {
   createRandomNumWidthScope(min, max) {
     return ~~(Math.random() * (max - min) + min)
   },
-  objectISEmpty(obj) {
+  objectIsEmpty(obj) {
     return Object.keys(obj).length > 0
   },
 }
