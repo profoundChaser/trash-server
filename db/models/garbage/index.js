@@ -20,6 +20,6 @@ const Garbage = sequelize.define(
 GarbageCategory.hasMany(Garbage, { foreignKey: 'categoryId', sourceKey: 'id' })
 Garbage.belongsTo(GarbageCategory, { foreignKey: 'categoryId', targetKey: 'id' })
 
-Garbage.sync().then(() => {})
+// Garbage.sync().then(() => {})
 
 module.exports = Garbage
