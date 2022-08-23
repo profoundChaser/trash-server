@@ -1,22 +1,21 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../../index')
 const User = sequelize.define('user', {
-  account_num: {
+  username: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  sex: {
-    type: Sequelize.ENUM(['男', '女']),
+  openId:{
+    type:Sequelize.STRING,
+    allowNull:false,
+    unique:true
   },
   avatar:{
     type:Sequelize.STRING,
   },
-  area: {
-    type: Sequelize.STRING,
-  },
 })
 
-// User.sync().then(() => {
+// User.sync({alter:true}).then(() => {
 // })
 
 module.exports = User

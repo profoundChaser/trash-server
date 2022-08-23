@@ -1,0 +1,45 @@
+const jwt = require('jsonwebtoken')
+const { time13TransferTime10 } = require('../../utils/utils')
+const checkToken = async (ctx, next) => {
+  const url = ctx.request.url
+  let res
+  const whiteList = ['/login']
+  if (whiteList.includes(url.split('?')[0])) {
+    await next()
+  } else {
+    try {
+      const token = ctx.request.header['authorization']
+      const tokenInfo = jwt.verify(token, key)
+      // 将token的创建的时间和过期时间结构出来
+      const { iat, exp } = tokenInfo
+      // 拿到当前的时间
+      let date = new Date().getTime()
+      if (token) {
+        if (time13TransferTime10(date) - iat <= exp) {
+          console.log('未超时')
+          await next()
+        } else {
+          ctx.status = 401
+          ctx.body = {
+            status: 401,
+            message: 'token 已过期，请重新登陆',
+          }
+        }
+      } else {
+        ctx.status = 401
+        ctx.body = {
+          status: 401,
+          message: '权限不足，请先登录',
+        }
+      }
+    } catch (err) {
+      // ctx.status = 401
+      // ctx.body = {
+      //   status: 401,
+      //   message: 'token认证失败,请重新登录',
+      // }
+    }
+  }
+}
+
+module.exports = checkToken

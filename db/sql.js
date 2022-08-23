@@ -15,8 +15,8 @@ module.exports = {
       },
     })
   },
-  getByPropAccurate: async function (tableName,where) {
-    return mapperConfig[tableName].findOne(where)
+  getByPropAccurate: async function (tableName,options) {
+    return mapperConfig[tableName].findOne(options)
   },
   getByPropBlur: async function (tableName, key, val) {
     return mapperConfig[tableName].findOne({
