@@ -9,6 +9,7 @@ const handleRes = require('../../utils/handleRes')
 module.exports = {
   //用户查询垃圾
   queryGarbage: async (id, keyword) => {
+    console.log(id,keyword)
     let res
     //从垃圾中获取结果
     const sqlRes = await sqlOperator.getByPropBlur(
@@ -18,8 +19,11 @@ module.exports = {
     )
     if (sqlRes) {
       const garbageCategory = await sqlRes.getGarbage_category()
+      console.log(garbageCategory)
       res = {
         garbage_category: garbageCategory.category_name,
+        categoryId:garbageCategory.id,
+        garbage_category_nameInEn:garbageCategory.nameInEn,
         keyword,
       }
     }

@@ -7,6 +7,10 @@ module.exports = {
       where: {
         userId: id,
       },
+      order:[[
+        'createdAt',
+        'DESC'
+      ]]
     }
     const res = await sqlOperator.getAll(tableName, options)
     return res
